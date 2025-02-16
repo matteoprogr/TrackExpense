@@ -43,15 +43,10 @@ public class TrackExpenseServiceImpl implements ITrackExpenseService {
     }
 
     @Override
-    public void deleteExpense(UserExpenseDto expense) {
-        if (expense != null) {
-            Expense newExpense = new Expense();
-            newExpense.setIdExpense(expense.getIdExpense());
-            newExpense.setUsername(expense.getUsername());
-            newExpense.setDescription(expense.getDescription());
-            newExpense.setAmount(expense.getAmount());
-            newExpense.setCategory(expense.getCategory());
-            newExpense.setExpenseDate(expense.getExpenseDate());
+    public void deleteExpense(String idExpense) {
+        if (idExpense != null) {
+            Expense newExpense = trackExpenseRepository.findByIdExpense(idExpense).orElseThrow();
+
             trackExpenseRepository.delete(newExpense);
         } else {
             throw new IllegalArgumentException(Constants.EXPENSE_CANT_BE_NULL);
