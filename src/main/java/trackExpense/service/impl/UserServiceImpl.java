@@ -3,6 +3,7 @@ package trackExpense.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import trackExpense.dto.UserDto;
 import trackExpense.model.User;
 import trackExpense.repository.UserRepository;
 import trackExpense.service.UserService;
@@ -21,7 +22,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(UserDto useDto) {
+
+        User user = new User(useDto.getUsername(), useDto.getPassword(), useDto.getEmail(), useDto.getName(), useDto.getSurname(), useDto.getBirthday());
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
